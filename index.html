@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frog with Hat</title>
+    <title>Frog with hat</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.1/web3.min.js"></script>
-    <script src="https://unpkg.com/@solana/web3.js@1.75.0/lib/index.iife.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
     <header>
         <div class="header-content">
-            <img src="Frogwifhat.png" alt="Frog with Hat" class="header-image">
+            <img src="Frogwifhat.png" alt="Frog with hat" class="header-image">
             <h1>frog with hat</h1>
-            <p>buy frog with hat now!</p>
         </div>
     </header>
 
     <main>
+        <section id="about">
+            <p>frog with hat is a completely pointless memecoin!!! It lives on Solana blockchain and you can buy it with Phantom Wallet.</p>
+        </section>
+
         <section id="buy">
             <h2>buy frog with hat now!</h2>
-            <p>1 sol = 10,000,000 tokens<br>minimum purchase: 0.01 sol</p>
+            <p>1 sol = 10,000,000 tokens<br>maximum supply: 10,000,000,000 tokens<br>minimum purchase: 0.01 sol</p>
             <input type="number" id="token-amount" placeholder="enter amount in sol (min. 0.01)">
             <button id="connect-wallet">connect your wallet</button>
+            <button id="buy-token">buy tokens</button>
         </section>
 
         <section id="community" class="boxed-section">
@@ -50,7 +53,5 @@
     <footer>
         <p>© 2024 frog with hat - don't forget your hat! 🎩</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
