@@ -1,12 +1,3 @@
-const { Connection, PublicKey, Transaction, SystemProgram } = solanaWeb3;
-
-// Wallet Details
-const RECEIVER_WALLET = "4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs"; // Deine Wallet-Adresse
-const SOLANA_NETWORK = "https://api.mainnet-beta.solana.com"; // Solana Mainnet
-
-let walletAddress = null;
-
-// Connect Wallet
 document.getElementById("connect-wallet").addEventListener("click", async () => {
     if (window.solana && window.solana.isPhantom) {
         try {
@@ -20,4 +11,19 @@ document.getElementById("connect-wallet").addEventListener("click", async () => 
     } else {
         alert("Phantom Wallet not found! Please install it from https://phantom.app");
     }
+});
+
+document.getElementById("buy-token").addEventListener("click", async () => {
+    if (!walletAddress) {
+        alert("Please connect your wallet first!");
+        return;
+    }
+
+    const amount = document.getElementById("token-amount").value;
+    if (!amount || parseFloat(amount) < 0.01) {
+        alert("Enter a valid amount of at least 0.01 SOL!");
+        return;
+    }
+
+    // Kauflogik wird hier implementiert
 });
