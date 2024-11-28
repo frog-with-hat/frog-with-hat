@@ -1,3 +1,6 @@
+// Buffer-Polyfill für Browser hinzufügen
+window.Buffer = window.Buffer || require('buffer').Buffer;
+
 // Verbindung zur Solana Blockchain herstellen
 const connection = new solanaWeb3.Connection(
     "https://api.mainnet-beta.solana.com", // Für Mainnet Beta (oder ändere zu Devnet für Tests)
@@ -57,4 +60,3 @@ document.getElementById("buy-token").addEventListener("click", async () => {
         alert("Transaction failed. Please try again. Check console for details.");
     }
 });
-
