@@ -60,3 +60,4 @@ document.getElementById("buy-token").addEventListener("click", async () => {
         alert("Transaction failed. Please try again. Check console for details.");
     }
 });
+
