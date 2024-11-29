@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.solana && window.solana.isPhantom) {
             try {
                 const response = await window.solana.connect();
-                walletAddress = response.publicKey.toString();
+                walletAddress = response.publicKey.toString(); // Speichere die verbundene Wallet-Adresse
                 alert(`Wallet connected: ${walletAddress}`);
                 console.log(`Wallet connected: ${walletAddress}`);
             } catch (err) {
@@ -49,19 +49,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
+            // Konvertiere Betrag in Lamports (1 SOL = 1e9 Lamports)
+            const lamports = Math.floor(parseFloat(amount) * 1e9);
+
+            console.log("Creating transaction...");
             const transaction = new solanaWeb3.Transaction().add(
                 solanaWeb3.SystemProgram.transfer({
                     fromPubkey: new solanaWeb3.PublicKey(walletAddress), // Verbundene Wallet-Adresse
                     toPubkey: new solanaWeb3.PublicKey("4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs"), // Ziel-Wallet
-                    lamports: Math.floor(parseFloat(amount) * 1e9) // Betrag in Lamports (1 SOL = 1e9 Lamports)
+                    lamports: lamports // Betrag in Lamports
                 })
             );
 
             console.log("Transaction created:", transaction);
 
-            // Transaktion signieren und senden
+            // Signiere und sende die Transaktion
             const signedTransaction = await window.solana.signTransaction(transaction);
             const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+
             alert(`Transaction successful! Signature: ${signature}`);
             console.log("Transaction successful! Signature:", signature);
         } catch (err) {
@@ -70,3 +75,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
