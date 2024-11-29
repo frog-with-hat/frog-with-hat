@@ -1,9 +1,9 @@
 // Buffer-Polyfill für Browser hinzufügen
 window.Buffer = window.Buffer || globalThis.Buffer;
 
-// Verbindung zur Solana Blockchain herstellen
+// Verbindung zur Solana Devnet herstellen
 const connection = new solanaWeb3.Connection(
-    "https://api.mainnet-beta.solana.com", // Mainnet Beta API-Endpunkt
+    "https://api.devnet.solana.com", // Devnet API-Endpunkt
     "confirmed"
 );
 
@@ -49,18 +49,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            console.log("Creating transaction...");
             const transaction = new solanaWeb3.Transaction().add(
                 solanaWeb3.SystemProgram.transfer({
-                    fromPubkey: new solanaWeb3.PublicKey(walletAddress),
-                    toPubkey: new solanaWeb3.PublicKey("4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs"),
-                    lamports: parseFloat(amount) * 1e9
+                    fromPubkey: new solanaWeb3.PublicKey(walletAddress), // Verbundene Wallet-Adresse
+                    toPubkey: new solanaWeb3.PublicKey("4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs"), // Ziel-Wallet
+                    lamports: Math.floor(parseFloat(amount) * 1e9) // Betrag in Lamports (1 SOL = 1e9 Lamports)
                 })
             );
 
             console.log("Transaction created:", transaction);
 
-            const { signature } = await window.solana.signAndSendTransaction(transaction);
+            // Transaktion signieren und senden
+            const signedTransaction = await window.solana.signTransaction(transaction);
+            const signature = await connection.sendRawTransaction(signedTransaction.serialize());
             alert(`Transaction successful! Signature: ${signature}`);
             console.log("Transaction successful! Signature:", signature);
         } catch (err) {
