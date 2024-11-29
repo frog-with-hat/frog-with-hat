@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            // Überprüfe, ob walletAddress ein gültiger PublicKey ist
+            // Überprüfe, ob walletAddress und Zieladresse gültig sind
             const fromPublicKey = new solanaWeb3.PublicKey(walletAddress);
             const toPublicKey = new solanaWeb3.PublicKey("4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs");
 
@@ -67,8 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(`To Wallet: ${toPublicKey.toBase58()}`);
             console.log(`Lamports: ${lamports}`);
 
-            // Überprüfe alle Parameter vor der Transaktion
-            if (!fromPublicKey || !toPublicKey || !lamports) {
+            // Überprüfe Parameter
+            if (!fromPublicKey || !toPublicKey || !lamports || lamports <= 0) {
                 throw new Error("Invalid transaction parameters");
             }
 
@@ -81,16 +81,18 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             transaction.add(instruction);
-
             console.log("Transaction created successfully:", transaction);
 
-            // Signiere und sende die Transaktion
+            // Signiere die Transaktion mit Phantom Wallet
             console.log("Signing transaction...");
             const signedTransaction = await window.solana.signTransaction(transaction);
             console.log("Transaction signed successfully");
 
+            // Sende die Transaktion an die Solana Blockchain
             console.log("Sending transaction to network...");
-            const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+            const signature = await connection.sendRawTransaction(signedTransaction.serialize(), {
+                skipPreflight: false,
+            });
             console.log("Transaction sent to network. Signature:", signature);
 
             alert(`Transaction successful! Signature: ${signature}`);
@@ -100,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
 
 
 
