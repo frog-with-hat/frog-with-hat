@@ -55,17 +55,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
+            // Überprüfe, ob walletAddress ein gültiger PublicKey ist
+            const fromPublicKey = new solanaWeb3.PublicKey(walletAddress);
+            if (!fromPublicKey) {
+                throw new Error("Invalid fromPubkey");
+            }
+
+            // Ziel-Wallet-Adresse initialisieren
+            const toPublicKey = new solanaWeb3.PublicKey("4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs");
+            if (!toPublicKey) {
+                throw new Error("Invalid toPubkey");
+            }
+
             // Konvertiere Betrag in Lamports (1 SOL = 1e9 Lamports)
             const lamports = Math.floor(parseFloat(amount) * 1e9);
 
             console.log("Creating transaction...");
-            console.log(`From Wallet: ${walletAddress}`);
-            console.log(`To Wallet: 4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs`);
+            console.log(`From Wallet: ${fromPublicKey}`);
+            console.log(`To Wallet: ${toPublicKey}`);
             console.log(`Lamports: ${lamports}`);
-
-            // Überprüfe, ob die Wallet-Adresse als PublicKey erstellt wurde
-            const fromPublicKey = new solanaWeb3.PublicKey(walletAddress);
-            const toPublicKey = new solanaWeb3.PublicKey("4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs");
 
             // Erstelle die Transaktion
             const transaction = new solanaWeb3.Transaction().add(
@@ -90,5 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
 
 
