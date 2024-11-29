@@ -67,8 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(`To Wallet: ${toPublicKey.toBase58()}`);
             console.log(`Lamports: ${lamports}`);
 
-            // Überprüfe Parameter
-            if (!fromPublicKey || !toPublicKey || !lamports || lamports <= 0) {
+            // Überprüfe alle Parameter vor der Transaktion
+            if (!fromPublicKey || !toPublicKey || lamports <= 0) {
                 throw new Error("Invalid transaction parameters");
             }
 
@@ -81,7 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             transaction.add(instruction);
+
             console.log("Transaction created successfully:", transaction);
+
+            // Manuelles Setzen der Gebühren, um Probleme zu vermeiden
+            transaction.feePayer = fromPublicKey;
+            const { blockhash } = await connection.getLatestBlockhash("finalized");
+            transaction.recentBlockhash = blockhash;
 
             // Signiere die Transaktion mit Phantom Wallet
             console.log("Signing transaction...");
@@ -101,6 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
             alert(`Transaction failed. Error: ${err.message}`);
         }
     });
+});
+
 });
 
 
