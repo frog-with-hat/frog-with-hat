@@ -12,6 +12,13 @@ let walletAddress = null; // Speichert die Wallet-Adresse des Benutzers
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded and parsed");
 
+    // Wallet beim Laden der Seite trennen
+    if (window.solana && window.solana.isPhantom) {
+        console.log("Disconnecting wallet on page load...");
+        window.solana.disconnect(); // Wallet-Verbindung trennen
+        walletAddress = null; // Wallet-Adresse zurücksetzen
+    }
+
     // Wallet verbinden
     document.getElementById("connect-wallet").addEventListener("click", async () => {
         console.log("Connect Wallet button clicked");
@@ -75,4 +82,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
 
