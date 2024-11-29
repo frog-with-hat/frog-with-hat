@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Wallet beim Laden der Seite trennen
     if (window.solana && window.solana.isPhantom) {
         console.log("Disconnecting wallet on page load...");
-        window.solana.disconnect(); // Wallet-Verbindung trennen
         walletAddress = null; // Wallet-Adresse zurücksetzen
     }
 
@@ -60,10 +59,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const lamports = Math.floor(parseFloat(amount) * 1e9);
 
             console.log("Creating transaction...");
+            console.log(`From Wallet: ${walletAddress}`);
+            console.log(`To Wallet: 4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs`);
+            console.log(`Lamports: ${lamports}`);
+
+            // Überprüfe, ob die Wallet-Adresse als PublicKey erstellt wurde
+            const fromPublicKey = new solanaWeb3.PublicKey(walletAddress);
+            const toPublicKey = new solanaWeb3.PublicKey("4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs");
+
+            // Erstelle die Transaktion
             const transaction = new solanaWeb3.Transaction().add(
                 solanaWeb3.SystemProgram.transfer({
-                    fromPubkey: new solanaWeb3.PublicKey(walletAddress), // Verbundene Wallet-Adresse
-                    toPubkey: new solanaWeb3.PublicKey("4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs"), // Ziel-Wallet
+                    fromPubkey: fromPublicKey,
+                    toPubkey: toPublicKey,
                     lamports: lamports // Betrag in Lamports
                 })
             );
