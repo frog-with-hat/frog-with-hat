@@ -3,13 +3,12 @@ window.Buffer = window.Buffer || globalThis.Buffer;
 
 // Verbindung zur Solana Blockchain herstellen
 const connection = new solanaWeb3.Connection(
-    "https://api.mainnet-beta.solana.com", // Für Mainnet Beta (oder ändere zu Devnet für Tests)
+    "https://api.mainnet-beta.solana.com", // Mainnet Beta API-Endpunkt
     "confirmed"
 );
 
 let walletAddress = null; // Speichert die Wallet-Adresse des Benutzers
 
-// Warten, bis der DOM vollständig geladen ist
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded and parsed");
 
@@ -38,16 +37,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!walletAddress) {
             alert("Please connect your wallet first!");
+            console.error("No wallet connected");
             return;
         }
 
         const amount = document.getElementById("token-amount").value;
         if (!amount || parseFloat(amount) < 0.01) {
             alert("Enter a valid amount of at least 0.01 SOL!");
+            console.error("Invalid amount entered:", amount);
             return;
         }
 
         try {
+            console.log("Creating transaction...");
             const transaction = new solanaWeb3.Transaction().add(
                 solanaWeb3.SystemProgram.transfer({
                     fromPubkey: new solanaWeb3.PublicKey(walletAddress),
@@ -56,9 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
             );
 
+            console.log("Transaction created:", transaction);
+
             const { signature } = await window.solana.signAndSendTransaction(transaction);
             alert(`Transaction successful! Signature: ${signature}`);
-            console.log(`Transaction successful! Signature: ${signature}`);
+            console.log("Transaction successful! Signature:", signature);
         } catch (err) {
             console.error("Transaction failed:", err);
             alert("Transaction failed. Please try again.");
