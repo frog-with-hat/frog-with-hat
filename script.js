@@ -57,47 +57,50 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             // Überprüfe, ob walletAddress ein gültiger PublicKey ist
             const fromPublicKey = new solanaWeb3.PublicKey(walletAddress);
-            if (!fromPublicKey) {
-                throw new Error("Invalid fromPubkey");
-            }
-
-            // Ziel-Wallet-Adresse initialisieren
             const toPublicKey = new solanaWeb3.PublicKey("4miKFSQZysmvRR6PnqQB8HzybCg1ZoF6QKaocbdtnXHs");
-            if (!toPublicKey) {
-                throw new Error("Invalid toPubkey");
-            }
 
             // Konvertiere Betrag in Lamports (1 SOL = 1e9 Lamports)
             const lamports = Math.floor(parseFloat(amount) * 1e9);
 
             console.log("Creating transaction...");
-            console.log(`From Wallet: ${fromPublicKey}`);
-            console.log(`To Wallet: ${toPublicKey}`);
+            console.log(`From Wallet: ${fromPublicKey.toBase58()}`);
+            console.log(`To Wallet: ${toPublicKey.toBase58()}`);
             console.log(`Lamports: ${lamports}`);
 
-            // Erstelle die Transaktion
-            const transaction = new solanaWeb3.Transaction().add(
-                solanaWeb3.SystemProgram.transfer({
-                    fromPubkey: fromPublicKey,
-                    toPubkey: toPublicKey,
-                    lamports: lamports // Betrag in Lamports
-                })
-            );
+            // Überprüfe alle Parameter vor der Transaktion
+            if (!fromPublicKey || !toPublicKey || !lamports) {
+                throw new Error("Invalid transaction parameters");
+            }
 
-            console.log("Transaction created:", transaction);
+            // Erstelle die Transaktion
+            const transaction = new solanaWeb3.Transaction();
+            const instruction = solanaWeb3.SystemProgram.transfer({
+                fromPubkey: fromPublicKey,
+                toPubkey: toPublicKey,
+                lamports: lamports,
+            });
+
+            transaction.add(instruction);
+
+            console.log("Transaction created successfully:", transaction);
 
             // Signiere und sende die Transaktion
+            console.log("Signing transaction...");
             const signedTransaction = await window.solana.signTransaction(transaction);
+            console.log("Transaction signed successfully");
+
+            console.log("Sending transaction to network...");
             const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+            console.log("Transaction sent to network. Signature:", signature);
 
             alert(`Transaction successful! Signature: ${signature}`);
-            console.log("Transaction successful! Signature:", signature);
         } catch (err) {
             console.error("Transaction failed:", err);
-            alert("Transaction failed. Please try again.");
+            alert(`Transaction failed. Error: ${err.message}`);
         }
     });
 });
+
 
 
 
