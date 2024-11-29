@@ -119,9 +119,44 @@ header h1 {
     text-align: center;
     color: #00ff00;
     font-weight: bold;
-    text-shadow:
+    text-shadow: 0 0 5px #00ff00;
+    line-height: 1.5;
+    text-transform: lowercase;
+}
 
+/* Disclaimer Section */
+#disclaimer {
+    text-align: center;
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 2px solid red;
+    color: red;
+    padding: 20px;
+    margin: 20px auto;
+    font-weight: bold;
+    text-transform: lowercase;
+    width: 90%;
+    box-shadow: 0 0 15px red;
+}
 
-button:hover {
-    background-color: #0056b3;
+#disclaimer h2 {
+    font-size: 1.5rem;
+    text-shadow: 0 0 5px red;
+    margin-bottom: 10px;
+}
+
+#disclaimer p {
+    font-size: 1rem;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: #00ff00;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-shadow: 0 0 5px #00ff00;
+    text-transform: lowercase;
 }
