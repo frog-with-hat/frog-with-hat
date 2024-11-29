@@ -3,59 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frog with hat</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Buffer Polyfill -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/buffer/6.0.3/buffer.min.js"></script>
-    <!-- Solana Web3.js Library -->
-    <script src="https://unpkg.com/@solana/web3.js@1.75.0/lib/index.iife.min.js"></script>
-    <script src="script.js" defer></script>
+    <title>Buy Frog With Hat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/solana-web3.js/1.62.3/solana-web3.min.js"></script>
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #00ff00;
+            text-align: center;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #00ff00;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #008000;
+            color: #fff;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <img src="Frogwifhat.png" alt="Frog with hat" class="header-image">
-            <h1>frog with hat</h1>
-        </div>
-    </header>
-
-    <main>
-        <section id="about">
-            <p>frog with hat is a completely pointless memecoin!!! It lives on Solana blockchain and you can buy it with Phantom Wallet.</p>
-        </section>
-
-        <section id="buy">
-            <h2>buy frog with hat now!</h2>
-            <p>1 sol = 10,000,000 tokens<br>maximum supply: 10,000,000,000 tokens<br>minimum purchase: 0.01 sol</p>
-            <input type="number" id="token-amount" placeholder="enter amount in sol (min. 0.01)">
-            <button id="connect-wallet">connect your wallet</button>
-            <button id="buy-token">buy tokens</button>
-        </section>
-
-        <section id="community" class="boxed-section">
-            <h2>join the frog with hat community</h2>
-            <p>join the frogs, but don't forget your hat!</p>
-            <div class="social-links">
-                <a href="https://x.com/frog_wif_hat" target="_blank" class="social-button">twitter</a>
-                <a href="https://t.me/frogwifhat" target="_blank" class="social-button">telegram</a>
-            </div>
-            <p class="community-text">
-                frogs with hats love community. no frogs without community! <br>
-                so if you want to have a lot of frogs, let's build a community that is simply froggy!
-            </p>
-        </section>
-
-        <section id="disclaimer">
-            <h2>disclaimer</h2>
-            <p>
-                memecoins, including frog with hat, are high-risk investments. this is not financial advice. 
-                do not invest if you cannot afford to lose your money.
-            </p>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2024 frog with hat - don't forget your hat! 🎩</p>
-    </footer>
+    <h1>Buy Frog With Hat</h1>
+    <button id="connect-wallet">Connect Wallet</button>
+    <br>
+    <input id="token-amount" type="text" placeholder="Enter amount in SOL" />
+    <button id="buy-token">Buy Tokens</button>
 </body>
 </html>
