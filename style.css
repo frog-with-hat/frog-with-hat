@@ -1,87 +1,106 @@
 /* Global Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     color: #00ff00;
     background: url('Frogwifhat.png') no-repeat center center fixed;
     background-size: cover;
+    text-align: center;
 }
 
 /* Header */
 header {
-    text-align: center;
-    padding: 50px 20px;
+    padding: 20px;
     background-color: rgba(0, 0, 0, 0.7);
     color: #00ff00;
-}
-
-.header-content {
-    position: relative;
-    z-index: 2;
-}
-
-.header-image {
-    width: 200px;
-    height: auto;
-    margin: 0 auto 20px;
-    display: block;
-    border-radius: 50%;
-    box-shadow: 0 0 20px #00ff00;
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+    margin-bottom: 20px;
 }
 
 header h1 {
     font-size: 3rem;
-    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
-    margin-top: 10px;
-    text-transform: lowercase;
+    margin: 0;
 }
 
-/* About Section */
-#about {
-    text-align: center;
-    margin: 20px auto;
-    padding: 10px;
-    color: #00ff00;
-    font-size: 1.2rem;
-    text-shadow: 0 0 5px #00ff00;
-}
-
-/* Buy Section */
-#buy {
-    text-align: center;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
-    box-shadow: 0 0 10px #00ff00;
-}
-
-#buy button {
+/* Buttons */
+button {
     padding: 10px 20px;
-    font-size: 1rem;
-    background-color: #000;
-    color: #00ff00;
-    border: 2px solid #00ff00;
+    font-size: 16px;
+    background-color: #00ff00; /* Grüne Farbe */
+    color: #000; /* Schwarzer Text */
+    border: none;
     border-radius: 5px;
     cursor: pointer;
-    text-shadow: 0 0 10px #00ff00;
-    margin-top: 10px;
-    text-transform: lowercase;
-}
-
-#buy button:hover {
-    background-color: #00ff00;
-    color: #000;
-}
-
-/* Community Section */
-.boxed-section {
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #00ff00;
     box-shadow: 0 0 10px #00ff00;
-    padding: 30px;
-    border-radius: 10px;
-    margin: 20px;
+    transition: all 0.3s ease-in-out;
+    margin: 10px;
 }
+
+button:hover {
+    background-color: #008000; /* Dunkelgrün */
+    color: #fff;
+    box-shadow: 0 0 20px #008000;
+}
+
+/* Input-Feld */
+input {
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px;
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    background-color: #000;
+    color: #00ff00;
+    text-align: center;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+input:focus {
+    outline: none;
+    border-color: #008000;
+    box-shadow: 0 0 15px #008000;
+}
+
+/* Wallet-Adresse */
+#wallet-address {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin: 20px auto;
+    word-wrap: break-word;
+    padding: 10px;
+    border: 2px dashed #00ff00;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+}
+
+/* Logs */
+#logs {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #ff0000;
+    text-shadow: 0 0 5px #ff0000;
+    padding: 10px;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    background-color: rgba(255, 0, 0, 0.1);
+    display: inline-block;
+    max-width: 80%;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    button, input {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    #wallet-address {
+        font-size: 1rem;
+    }
+}
+
