@@ -95,3 +95,4 @@ function showLog(message) {
     const logElement = document.getElementById("logs");
     logElement.innerText = message;
 }
+
